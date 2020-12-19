@@ -59503,6 +59503,7 @@ class View {
             theme: this.theme,
             projection: harp_geoutils_1.sphereProjection,
             decoderUrl: 'decoder.bundle.js',
+            maxZoomLevel: 15,
         });
         const dataSource = new harp_vectortile_datasource_1.VectorTileDataSource({
             baseUrl: 'https://tile.openstreetmap.jp/data/japan',
