@@ -59511,6 +59511,12 @@ class View {
             styleSetName: 'gsi',
         });
         mapView.addDataSource(dataSource);
+        const geoJsonDataProvider = new harp_vectortile_datasource_1.GeoJsonDataProvider('star', new URL('star.geojson', window.location.href));
+        const geoJsonDataSource = new harp_vectortile_datasource_1.VectorTileDataSource({
+            dataProvider: geoJsonDataProvider,
+            styleSetName: 'geojson',
+        });
+        mapView.addDataSource(geoJsonDataSource);
         harp_map_controls_1.MapControls.create(mapView);
         return mapView;
     }
@@ -59539,6 +59545,19 @@ const View_1 = __webpack_require__(/*! ./View */ "./View.ts");
 const app = new View_1.View({
     canvas: document.getElementById('map'),
     theme: {
+        lights: [
+            {
+                type: 'directional',
+                color: '#CCCBBB',
+                name: 'light1',
+                intensity: 1,
+                direction: {
+                    x: 1,
+                    y: 5,
+                    z: 0.5,
+                },
+            },
+        ],
         sky: {
             type: 'gradient',
             topColor: '#002299',
@@ -59629,6 +59648,31 @@ const app = new View_1.View({
                     lineFadeFar: 1,
                 },
             ],
+            geojson: [
+                {
+                    id: 'extrudedBuildings',
+                    description: 'extruded buildings',
+                    technique: 'extruded-polygon',
+                    layer: 'star',
+                    minZoomLevel: 14,
+                    renderOrder: 2000,
+                    height: 300,
+                    color: '#ffffff',
+                    roughness: 1,
+                    metalness: 0.8,
+                    emissive: '#ffff00',
+                    emissiveIntensity: 0.85,
+                    footprint: true,
+                    maxSlope: 0.8799999999999999,
+                    lineWidth: 1,
+                    lineColor: '#000000',
+                    lineColorMix: 0.6,
+                    fadeNear: 0.9,
+                    fadeFar: 1,
+                    lineFadeNear: -0.75,
+                    lineFadeFar: 1,
+                },
+            ],
         },
     },
 });
@@ -59643,7 +59687,7 @@ window.addEventListener('resize', () => {
 mapView.lookAt({
     target: new harp_geoutils_1.GeoCoordinates(35.6809591, 139.7673068),
     zoomLevel: 15,
-    tilt: 75,
+    tilt: 65,
 });
 // make sure the map is rendered
 mapView.update();
