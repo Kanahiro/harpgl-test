@@ -11,6 +11,7 @@ import { MapView } from '@here/harp-mapview';
 import {
     APIFormat,
     VectorTileDataSource,
+    GeoJsonDataProvider,
 } from '@here/harp-vectortile-datasource';
 
 const defaultTheme = 'resources/berlin_tilezen_base.json';
@@ -38,6 +39,7 @@ export class View {
             theme: this.theme,
             projection: sphereProjection,
             decoderUrl: 'decoder.bundle.js',
+            maxZoomLevel: 15,
         });
 
         const dataSource = new VectorTileDataSource({
@@ -46,6 +48,16 @@ export class View {
             styleSetName: 'gsi',
         });
         mapView.addDataSource(dataSource);
+
+        const geoJsonDataProvider = new GeoJsonDataProvider(
+            'star',
+            new URL('star.geojson', window.location.href),
+        );
+        const geoJsonDataSource = new VectorTileDataSource({
+            dataProvider: geoJsonDataProvider,
+            styleSetName: 'geojson',
+        });
+        mapView.addDataSource(geoJsonDataSource);
 
         MapControls.create(mapView);
 

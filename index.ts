@@ -11,6 +11,19 @@ import { View } from './View';
 const app = new View({
     canvas: document.getElementById('map') as HTMLCanvasElement,
     theme: {
+        lights: [
+            {
+                type: 'directional',
+                color: '#CCCBBB',
+                name: 'light1',
+                intensity: 1,
+                direction: {
+                    x: 1,
+                    y: 5,
+                    z: 0.5,
+                },
+            },
+        ],
         sky: {
             type: 'gradient',
             topColor: '#002299',
@@ -101,6 +114,31 @@ const app = new View({
                     lineFadeFar: 1,
                 },
             ],
+            geojson: [
+                {
+                    id: 'extrudedBuildings',
+                    description: 'extruded buildings',
+                    technique: 'extruded-polygon',
+                    layer: 'star',
+                    minZoomLevel: 14,
+                    renderOrder: 2000,
+                    height: 300,
+                    color: '#ffffff',
+                    roughness: 1,
+                    metalness: 0.8,
+                    emissive: '#ffff00',
+                    emissiveIntensity: 0.85,
+                    footprint: true,
+                    maxSlope: 0.8799999999999999,
+                    lineWidth: 1,
+                    lineColor: '#000000',
+                    lineColorMix: 0.6,
+                    fadeNear: 0.9,
+                    fadeFar: 1,
+                    lineFadeNear: -0.75,
+                    lineFadeFar: 1,
+                },
+            ],
         },
     },
 });
@@ -119,7 +157,7 @@ window.addEventListener('resize', () => {
 mapView.lookAt({
     target: new GeoCoordinates(35.6809591, 139.7673068),
     zoomLevel: 15,
-    tilt: 75,
+    tilt: 65,
 });
 
 // make sure the map is rendered
